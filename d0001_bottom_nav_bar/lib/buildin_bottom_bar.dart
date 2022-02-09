@@ -14,6 +14,12 @@ class _BuildinBottomBarState extends State<BuildinBottomBar> {
   final PageController _pageController = PageController();
 
   @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -30,27 +36,42 @@ class _BuildinBottomBarState extends State<BuildinBottomBar> {
           Container(
             alignment: Alignment.center,
             color: Colors.red,
-            child: const Text("1"),
+            child: const Text(
+              "1",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.blue,
-            child: const Text("2"),
+            child: const Text(
+              "2",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.orange,
-            child: const Text("3"),
+            child: const Text(
+              "3",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.pink,
-            child: const Text("4"),
+            child: const Text(
+              "4",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.purple,
-            child: const Text("5"),
+            child: const Text(
+              "5",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
         ],
       ),
@@ -120,6 +141,12 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
   final PageController _pageController = PageController();
 
   @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -136,12 +163,18 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
           Container(
             alignment: Alignment.center,
             color: Colors.white,
-            child: const Text("1"),
+            child: const Text(
+              "1",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.blue,
-            child: const Text("2"),
+            child: const Text(
+              "2",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           // Container(
           //   alignment: Alignment.center,
@@ -151,17 +184,23 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
           Container(
             alignment: Alignment.center,
             color: Colors.pink,
-            child: const Text("3"),
+            child: const Text(
+              "3",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           Container(
             alignment: Alignment.center,
             color: Colors.purple,
-            child: const Text("4"),
+            child: const Text(
+              "4",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 112, 130, 231),
+          backgroundColor: const Color.fromARGB(255, 112, 130, 231),
           onPressed: () {},
           child: const Icon(
             Icons.edit,

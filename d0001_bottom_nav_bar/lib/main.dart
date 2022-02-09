@@ -37,6 +37,7 @@ class _MainHomeState extends State<MainHome> {
       children: [
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("clicked");
               pushNewScreen(
                 context,
@@ -49,6 +50,7 @@ class _MainHomeState extends State<MainHome> {
         ),
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("clicked");
               pushNewScreen(
                 context,
@@ -61,6 +63,7 @@ class _MainHomeState extends State<MainHome> {
         ),
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("clicked");
               pushNewScreen(
                 context,
@@ -73,6 +76,7 @@ class _MainHomeState extends State<MainHome> {
         ),
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("clicked");
               pushNewScreen(
                 context,
@@ -85,6 +89,7 @@ class _MainHomeState extends State<MainHome> {
         ),
         ElevatedButton(
             onPressed: () {
+              // ignore: avoid_print
               print("clicked");
               pushNewScreen(
                 context,
