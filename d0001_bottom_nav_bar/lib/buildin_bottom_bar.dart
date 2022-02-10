@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class BuildinBottomBar extends StatefulWidget {
   final BuildContext menuScreenContext;
@@ -199,13 +200,16 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(255, 112, 130, 231),
-          onPressed: () {},
-          child: const Icon(
-            Icons.edit,
-            color: Color.fromARGB(255, 247, 93, 93),
-          )),
+      floatingActionButton: Opacity(
+        opacity: 0.8,
+        child: FloatingActionButton(
+            backgroundColor: const Color.fromARGB(255, 112, 130, 231),
+            onPressed: () {},
+            child: const Icon(
+              Icons.edit,
+              color: Color.fromARGB(255, 247, 93, 93),
+            )),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey,
