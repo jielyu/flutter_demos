@@ -223,7 +223,7 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
               createNavItem(0, _currentIndex, Icons.home, Colors.white, "首页"),
               createNavItem(
                   1, _currentIndex, Icons.message, Colors.white, "消息"),
-              createNavItem(-1, _currentIndex, Icons.home, Colors.white, "编辑"),
+              createNavItem(-1, _currentIndex, Icons.home, Colors.white, ""),
               createNavItem(2, _currentIndex, Icons.person, Colors.white, "榜单"),
               createNavItem(
                   3, _currentIndex, Icons.settings, Colors.white, "设置"),
