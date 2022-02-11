@@ -161,22 +161,8 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
           });
         },
         children: [
-          Container(
-            alignment: Alignment.center,
-            color: Colors.white,
-            child: const Text(
-              "1",
-              style: TextStyle(fontSize: 100),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            color: Colors.blue,
-            child: const Text(
-              "2",
-              style: TextStyle(fontSize: 100),
-            ),
-          ),
+          const HomePageBuildOnce(),
+          const MessagePageBuildTimes(),
           // Container(
           //   alignment: Alignment.center,
           //   color: Colors.orange,
@@ -255,5 +241,55 @@ class _MagicBottomBarState extends State<MagicBottomBar> {
   void onTap(int value) {
     _pageController.animateToPage(value,
         duration: const Duration(microseconds: 200), curve: Curves.easeIn);
+  }
+}
+
+class HomePageBuildOnce extends StatefulWidget {
+  const HomePageBuildOnce({Key? key}) : super(key: key);
+
+  @override
+  _HomePageBuildOnceState createState() => _HomePageBuildOnceState();
+}
+
+// 解决页面重复刷新的问题
+class _HomePageBuildOnceState extends State<HomePageBuildOnce>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    print("build HomePageBuildOnce page");
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.white,
+      child: const Text(
+        "1",
+        style: TextStyle(fontSize: 100),
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class MessagePageBuildTimes extends StatefulWidget {
+  const MessagePageBuildTimes({Key? key}) : super(key: key);
+
+  @override
+  _MessagePageBuildTimesState createState() => _MessagePageBuildTimesState();
+}
+
+// 存在重复创建的问题，与只创建一次的解决方案形成对比
+class _MessagePageBuildTimesState extends State<MessagePageBuildTimes> {
+  @override
+  Widget build(BuildContext context) {
+    print("build MessagePageBuildTimes page");
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.blue,
+      child: const Text(
+        "2",
+        style: TextStyle(fontSize: 100),
+      ),
+    );
   }
 }
