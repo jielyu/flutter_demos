@@ -1,16 +1,5 @@
 # d0002_text_widget
 
-A new Flutter project.
+演示多种文本展示的例子，包括一般文本，富文本，自动大小变化的文本，html风格文本以及数学公式。
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
