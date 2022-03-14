@@ -38,13 +38,16 @@ class _WebviewPageState extends State<WebviewPage> {
           // IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_right_alt))
         ],
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          NavigationControls(_controller.future),
-          SampleMenu(_controller.future),
-        ],
+      // bottomNavigationBar: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   mainAxisSize: MainAxisSize.max,
+      //   children: [
+      //     NavigationControls(_controller.future),
+      //     SampleMenu(_controller.future),
+      //   ],
+      // ),
+      bottomNavigationBar: WebviewBottomBar(
+        controller: _controller.future,
       ),
       body: Builder(builder: (BuildContext context) {
         return WebView(
@@ -113,10 +116,30 @@ class _WebviewPageState extends State<WebviewPage> {
       },
     );
   }
+}
 
-  Widget _buildBottomBar() {
-    FutureBuilder<WebViewController>(
-      future: _controller.future,
+class WebviewBottomBar extends StatefulWidget {
+  final Future<WebViewController> controller;
+  const WebviewBottomBar({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  State<WebviewBottomBar> createState() => _WebviewBottomBarState();
+}
+
+class _WebviewBottomBarState extends State<WebviewBottomBar> {
+  bool canGoBack = false;
+  bool canGoForward = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<WebViewController>(
+      future: widget.controller,
       builder:
           (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
         final bool webViewReady =
@@ -125,51 +148,47 @@ class _WebviewPageState extends State<WebviewPage> {
         if (!webViewReady) {
           return Container();
         }
-        final canGoBack = controller!.canGoBack();
-        final canGoForward = controller.canGoForward();
+
+        () async {
+          final bool tmpBack = await controller!.canGoBack();
+          final bool tmpForward = await controller.canGoForward();
+          if (canGoBack != tmpBack || canGoForward != tmpForward) {
+            setState(() {
+              canGoBack = tmpBack;
+              canGoForward = tmpForward;
+            });
+          }
+        }();
+        print("canGoBack=$canGoBack, canGoForward=$canGoForward");
         return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
               icon: const Icon(Icons.arrow_back_ios),
-              onPressed: !webViewReady
+              onPressed: !canGoBack
                   ? null
                   : () async {
-                      if (await controller!.canGoBack()) {
-                        await controller.goBack();
-                      } else {
-                        // ignore: deprecated_member_use
-                        Scaffold.of(context).showSnackBar(
-                          const SnackBar(content: Text('No back history item')),
-                        );
-                        return;
-                      }
+                      await controller!.goBack();
+                      setState(() {});
                     },
             ),
             IconButton(
               icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: !webViewReady
+              onPressed: !canGoForward
                   ? null
                   : () async {
-                      if (await controller!.canGoForward()) {
-                        await controller.goForward();
-                      } else {
-                        // ignore: deprecated_member_use
-                        Scaffold.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('No forward history item')),
-                        );
-                        return;
-                      }
+                      await controller!.goForward();
+                      setState(() {});
                     },
             ),
             IconButton(
               icon: const Icon(Icons.replay),
-              onPressed: !webViewReady
-                  ? null
-                  : () {
-                      controller!.reload();
-                    },
+              onPressed: () {
+                controller!.reload();
+                setState(() {});
+              },
             ),
+            SampleMenu(widget.controller),
           ],
         );
       },
