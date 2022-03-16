@@ -37,6 +37,8 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.4.0
   webview_flutter: ^3.0.1
   path_provider: ^2.0.9
+  provider: ^6.0.2
+  badges: ^2.0.2
 
 dev_dependencies:
   flutter_test:

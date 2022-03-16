@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
+import 'image_picker_page.dart';
+import 'provider_page.dart';
 import 'webview_flutter_page.dart';
 
 void main() {
@@ -11,6 +13,8 @@ class MyApp extends StatelessWidget {
   final _routes = <String, WidgetBuilder>{
     "/home": (context) => const HomePage(),
     "/webview_flutter": (context) => const WebviewPage(),
+    "/provider": (context) => const ProviderPage(),
+    "/image_picker": (context) => const ImagePickerPage(),
   };
   MyApp({Key? key}) : super(key: key);
 
