@@ -4,6 +4,14 @@ import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'image_picker_page.dart';
 import 'provider_page.dart';
 import 'webview_flutter_page.dart';
+import 'local_notification_page.dart';
+import 'awesome_dialog_page.dart';
+import 'color_picker_page.dart';
+import 'file_picker_page.dart';
+import 'qr_code_page.dart';
+import 'share_page.dart';
+import 'sqflite_page.dart';
+import 'video_player_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +23,14 @@ class MyApp extends StatelessWidget {
     "/webview_flutter": (context) => const WebviewPage(),
     "/provider": (context) => const ProviderPage(),
     "/image_picker": (context) => const ImagePickerPage(),
+    "/local_notification": (context) => const LocalNotificationPage(),
+    "/sqflite": (context) => const SqflitePage(),
+    "/video_player": (context) => const VideoPlayerPage(),
+    "/qr_code": (context) => const QRCodePage(),
+    "/color_picker": (context) => const ColorPickerPage(),
+    "/awesome_dialog": (context) => const AwesomeDialog(),
+    "/file_picker": (context) => const FilePickerPage(),
+    "/share": (context) => const SharePage(),
   };
   MyApp({Key? key}) : super(key: key);
 
@@ -69,6 +85,14 @@ class _HomePageState extends State<HomePage> {
           _buildListItem("webview_flutter", Icons.web),
           _buildListItem("provider", Icons.person),
           _buildListItem("image_picker", Icons.person),
+          _buildListItem("local_notification", Icons.person),
+          _buildListItem("sqflite", Icons.person),
+          _buildListItem("video_player", Icons.person),
+          _buildListItem("qr_code", Icons.person),
+          _buildListItem("color_picker", Icons.person),
+          _buildListItem("awesome_dialog", Icons.person),
+          _buildListItem("file_picker", Icons.person),
+          _buildListItem("share", Icons.person),
           ListTile(
             leading: const Icon(Icons.color_lens),
             title: const Text("flutter_statusbarcolor_ns"),

@@ -39,6 +39,8 @@ dependencies:
   path_provider: ^2.0.9
   provider: ^6.0.2
   badges: ^2.0.2
+  image_picker: ^0.8.4
+  flutter_local_notifications: ^9.4.0
 
 dev_dependencies:
   flutter_test:
