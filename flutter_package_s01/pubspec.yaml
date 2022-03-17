@@ -44,6 +44,7 @@ dependencies:
   rxdart: ^0.27.3
   sqflite: ^2.0.2
   video_player: ^2.3.0
+  qr_code_scanner: ^0.7.0
 
 dev_dependencies:
   flutter_test:
