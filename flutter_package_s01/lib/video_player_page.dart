@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoPlayerPage extends StatefulWidget {
   const VideoPlayerPage({Key? key}) : super(key: key);
