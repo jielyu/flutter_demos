@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class FilePickerPage extends StatefulWidget {
   const FilePickerPage({Key? key}) : super(key: key);
@@ -16,7 +19,37 @@ class _FilePickerPageState extends State<FilePickerPage> {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: const Text("文件选择"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () async {
+                FilePickerResult? result =
+                    await FilePicker.platform.pickFiles();
+
+                if (result != null) {
+                  print('select file:${result.files.single.path!}');
+                } else {
+                  print('pick no file');
+                }
+              },
+              child: const Text("文件选择"),
+            ),
+            TextButton(
+              onPressed: () async {
+                String? selectedDirectory =
+                    await FilePicker.platform.getDirectoryPath();
+
+                if (selectedDirectory == null) {
+                  print('pick no dir');
+                } else {
+                  print('select dir:$selectedDirectory');
+                }
+              },
+              child: const Text("目录选择"),
+            ),
+          ],
+        ),
       ),
     );
   }
