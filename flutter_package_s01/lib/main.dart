@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     "/video_player": (context) => const VideoPlayerPage(),
     "/qr_code": (context) => const QRCodePage(),
     "/color_picker": (context) => const ColorPickerPage(),
-    "/awesome_dialog": (context) => const AwesomeDialog(),
+    "/awesome_dialog": (context) => const AwesomeDialogPage(),
     "/file_picker": (context) => const FilePickerPage(),
     "/share": (context) => const SharePage(),
   };
