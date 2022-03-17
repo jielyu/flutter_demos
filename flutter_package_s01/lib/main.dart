@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_package_s01/emoji_picker_page.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
     "/awesome_dialog": (context) => const AwesomeDialogPage(),
     "/file_picker": (context) => const FilePickerPage(),
     "/share": (context) => const SharePage(),
+    "/emoji_picker": (context) => const EmojiPickerPage(),
   };
   MyApp({Key? key}) : super(key: key);
 
@@ -90,16 +92,17 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           _buildListItem("webview_flutter", Icons.web),
-          _buildListItem("provider", Icons.person),
-          _buildListItem("image_picker", Icons.person),
-          _buildListItem("local_notification", Icons.person),
-          _buildListItem("sqflite", Icons.person),
-          _buildListItem("video_player", Icons.person),
-          _buildListItem("qr_code", Icons.person),
-          _buildListItem("color_picker", Icons.person),
+          _buildListItem("provider", Icons.star_outline_sharp),
+          _buildListItem("image_picker", Icons.image),
+          _buildListItem("local_notification", Icons.notification_add),
+          _buildListItem("sqflite", Icons.save_rounded),
+          _buildListItem("video_player", Icons.video_call),
+          _buildListItem("qr_code", Icons.qr_code),
+          _buildListItem("color_picker", Icons.color_lens),
           _buildListItem("awesome_dialog", Icons.person),
-          _buildListItem("file_picker", Icons.person),
-          _buildListItem("share", Icons.person),
+          _buildListItem("file_picker", Icons.file_copy),
+          _buildListItem("share", Icons.share),
+          _buildListItem("emoji_picker", Icons.emoji_emotions),
           ListTile(
             leading: const Icon(Icons.color_lens),
             title: const Text("flutter_statusbarcolor_ns"),
