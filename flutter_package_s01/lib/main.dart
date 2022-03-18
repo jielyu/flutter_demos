@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_package_s01/emoji_picker_page.dart';
+import 'package:flutter_package_s01/webview_flutter_page_android.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -28,7 +29,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final _routes = <String, WidgetBuilder>{
     "/home": (context) => const HomePage(),
-    "/webview_flutter": (context) => const WebviewPage(),
+    "/webview_flutter": (context) =>
+        Platform.isAndroid ? const WebviewAndroidPage() : const WebviewPage(),
     "/provider": (context) => const ProviderPage(),
     "/image_picker": (context) => const ImagePickerPage(),
     "/local_notification": (context) => const LocalNotificationPage(),

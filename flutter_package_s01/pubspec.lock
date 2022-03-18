@@ -589,7 +589,7 @@ packages:
     source: hosted
     version: "3.0.1"
   webview_flutter_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter_android
       url: "https://pub.flutter-io.cn"
