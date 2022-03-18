@@ -1,13 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_package_s01/emoji_picker_page.dart';
-import 'package:flutter_package_s01/webview_flutter_page_android.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
-import 'package:rxdart/subjects.dart';
 
 import 'image_picker_page.dart';
 import 'provider_page.dart';
@@ -20,6 +14,8 @@ import 'qr_code_page.dart';
 import 'share_page.dart';
 import 'sqflite_page.dart';
 import 'video_player_page.dart';
+import 'emoji_picker_page.dart';
+import 'webview_flutter_page_android.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
