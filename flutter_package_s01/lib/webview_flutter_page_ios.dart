@@ -4,15 +4,95 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:webview_flutter_android/webview_surface_android.dart';
-import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
-import 'webview_android/navigation_decision.dart';
-import 'webview_android/navigation_request.dart';
-import 'webview_android/web_view.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'utils.dart';
+
+class WebviewCustomIOSPage extends StatefulWidget {
+  String url = "https://baidu.com";
+  WebviewCustomIOSPage(this.url, {Key? key}) : super(key: key);
+
+  @override
+  State<WebviewCustomIOSPage> createState() => _WebviewPageCustomIOSState();
+}
+
+class _WebviewPageCustomIOSState extends State<WebviewCustomIOSPage> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.url),
+        actions: <Widget>[
+          TextButton(onPressed: () {}, child: const Text("GO"))
+          // IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_right_alt))
+        ],
+      ),
+      bottomNavigationBar: WebviewBottomBar(
+        controller: _controller.future,
+      ),
+      body: Builder(
+        builder: (BuildContext context) {
+          return WebView(
+            initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              _controller.complete(webViewController);
+            },
+            javascriptChannels: <JavascriptChannel>{
+              _toasterJavascriptChannel(context),
+            },
+            navigationDelegate: (NavigationRequest request) {
+              if (request.url.startsWith('https://www.youtube.com/')) {
+                print('blocking navigation to $request}');
+                return NavigationDecision.prevent;
+              }
+              context.read<WebStatusNotifier>().change();
+              print('allowing navigation to $request');
+              return NavigationDecision.navigate;
+            },
+            onPageStarted: (String url) {
+              print('Page started loading: $url');
+            },
+            onProgress: (int progress) {
+              context.read<WebStatusNotifier>().change();
+              print('WebView is loading (progress : $progress%)');
+            },
+            onPageFinished: (String url) {
+              context.read<WebStatusNotifier>().change();
+              print('Page finished loading: $url');
+            },
+            gestureNavigationEnabled: true,
+            backgroundColor: const Color(0x00000000),
+          );
+        },
+      ),
+    );
+  }
+
+  JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'Toaster',
+        onMessageReceived: (JavascriptMessage message) {
+          // ignore: deprecated_member_use
+          Scaffold.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        });
+  }
+}
 
 class WebviewBottomBar extends StatefulWidget {
   final Future<WebViewController> controller;
@@ -28,12 +108,8 @@ class _WebviewBottomBarState extends State<WebviewBottomBar> {
   bool canGoForward = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print("build IOS Bottom Bar");
     context.watch<WebStatusNotifier>();
     return FutureBuilder<WebViewController>(
       future: widget.controller,
@@ -86,7 +162,7 @@ class _WebviewBottomBarState extends State<WebviewBottomBar> {
                   setState(() {});
                 },
               ),
-              _SampleMenu(widget.controller),
+              SampleMenu(widget.controller),
             ],
           ),
         );
@@ -95,90 +171,7 @@ class _WebviewBottomBarState extends State<WebviewBottomBar> {
   }
 }
 
-class WebViewCustomAndroidPage extends StatefulWidget {
-  String url = "https://baidu.com/";
-  WebViewCustomAndroidPage(this.url, {Key? key}) : super(key: key);
-
-  @override
-  State<WebViewCustomAndroidPage> createState() =>
-      _WebViewCustomAndroidPageState();
-}
-
-class _WebViewCustomAndroidPageState extends State<WebViewCustomAndroidPage> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
-  @override
-  void initState() {
-    super.initState();
-    if (Platform.isAndroid) {
-      WebView.platform = SurfaceAndroidWebView();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.url),
-        actions: <Widget>[
-          TextButton(onPressed: () {}, child: const Text("GO"))
-          // IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_right_alt))
-        ],
-      ),
-      bottomNavigationBar: WebviewBottomBar(
-        controller: _controller.future,
-      ),
-      body: Builder(
-        builder: (BuildContext context) {
-          return WebView(
-            initialUrl: widget.url,
-            onWebViewCreated: (WebViewController controller) {
-              _controller.complete(controller);
-            },
-            onProgress: (int progress) {
-              context.read<WebStatusNotifier>().change();
-              print('WebView is loading (progress : $progress%)');
-            },
-            navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
-                print('blocking navigation to $request}');
-                return NavigationDecision.prevent;
-              }
-              context.read<WebStatusNotifier>().change();
-              print('allowing navigation to $request');
-              return NavigationDecision.navigate;
-            },
-            onPageStarted: (String url) {
-              print('Page started loading: $url');
-            },
-            onPageFinished: (String url) {
-              context.read<WebStatusNotifier>().change();
-              print('Page finished loading: $url');
-            },
-            javascriptChannels: _createJavascriptChannels(context),
-            javascriptMode: JavascriptMode.unrestricted,
-            // userAgent: 'Custom_User_Agent',
-            backgroundColor: const Color(0x80000000),
-          );
-        },
-      ),
-    );
-  }
-}
-
-Set<JavascriptChannel> _createJavascriptChannels(BuildContext context) {
-  return <JavascriptChannel>{
-    JavascriptChannel(
-        name: 'Snackbar',
-        onMessageReceived: (JavascriptMessage message) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(message.message)));
-        }),
-  };
-}
-
-enum _MenuOptions {
+enum MenuOptions {
   showUserAgent,
   listCookies,
   clearCookies,
@@ -186,18 +179,19 @@ enum _MenuOptions {
   listCache,
   clearCache,
   navigationDelegate,
-  loadFlutterAsset,
+  doPostRequest,
   loadLocalFile,
+  loadFlutterAsset,
   loadHtmlString,
   transparentBackground,
-  doPostRequest,
   setCookie,
 }
 
-class _SampleMenu extends StatelessWidget {
-  const _SampleMenu(this.controller);
+class SampleMenu extends StatelessWidget {
+  SampleMenu(this.controller);
 
   final Future<WebViewController> controller;
+  final CookieManager cookieManager = CookieManager();
 
   @override
   Widget build(BuildContext context) {
@@ -205,105 +199,105 @@ class _SampleMenu extends StatelessWidget {
       future: controller,
       builder:
           (BuildContext context, AsyncSnapshot<WebViewController> controller) {
-        return PopupMenuButton<_MenuOptions>(
+        return PopupMenuButton<MenuOptions>(
           key: const ValueKey<String>('ShowPopupMenu'),
-          onSelected: (_MenuOptions value) {
+          onSelected: (MenuOptions value) {
             switch (value) {
-              case _MenuOptions.showUserAgent:
+              case MenuOptions.showUserAgent:
                 _onShowUserAgent(controller.data!, context);
                 break;
-              case _MenuOptions.listCookies:
+              case MenuOptions.listCookies:
                 _onListCookies(controller.data!, context);
                 break;
-              case _MenuOptions.clearCookies:
-                _onClearCookies(controller.data!, context);
+              case MenuOptions.clearCookies:
+                _onClearCookies(context);
                 break;
-              case _MenuOptions.addToCache:
+              case MenuOptions.addToCache:
                 _onAddToCache(controller.data!, context);
                 break;
-              case _MenuOptions.listCache:
+              case MenuOptions.listCache:
                 _onListCache(controller.data!, context);
                 break;
-              case _MenuOptions.clearCache:
+              case MenuOptions.clearCache:
                 _onClearCache(controller.data!, context);
                 break;
-              case _MenuOptions.navigationDelegate:
+              case MenuOptions.navigationDelegate:
                 _onNavigationDelegateExample(controller.data!, context);
                 break;
-              case _MenuOptions.loadFlutterAsset:
-                _onLoadFlutterAssetExample(controller.data!, context);
-                break;
-              case _MenuOptions.loadLocalFile:
-                _onLoadLocalFileExample(controller.data!, context);
-                break;
-              case _MenuOptions.loadHtmlString:
-                _onLoadHtmlStringExample(controller.data!, context);
-                break;
-              case _MenuOptions.transparentBackground:
-                _onTransparentBackground(controller.data!, context);
-                break;
-              case _MenuOptions.doPostRequest:
+              case MenuOptions.doPostRequest:
                 _onDoPostRequest(controller.data!, context);
                 break;
-              case _MenuOptions.setCookie:
+              case MenuOptions.loadLocalFile:
+                _onLoadLocalFileExample(controller.data!, context);
+                break;
+              case MenuOptions.loadFlutterAsset:
+                _onLoadFlutterAssetExample(controller.data!, context);
+                break;
+              case MenuOptions.loadHtmlString:
+                _onLoadHtmlStringExample(controller.data!, context);
+                break;
+              case MenuOptions.transparentBackground:
+                _onTransparentBackground(controller.data!, context);
+                break;
+              case MenuOptions.setCookie:
                 _onSetCookie(controller.data!, context);
                 break;
             }
           },
-          itemBuilder: (BuildContext context) => <PopupMenuItem<_MenuOptions>>[
-            PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.showUserAgent,
+          itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
+            PopupMenuItem<MenuOptions>(
+              value: MenuOptions.showUserAgent,
               child: const Text('Show user agent'),
               enabled: controller.hasData,
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.listCookies,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.listCookies,
               child: Text('List cookies'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.clearCookies,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.clearCookies,
               child: Text('Clear cookies'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.addToCache,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.addToCache,
               child: Text('Add to cache'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.listCache,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.listCache,
               child: Text('List cache'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.clearCache,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.clearCache,
               child: Text('Clear cache'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.navigationDelegate,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.navigationDelegate,
               child: Text('Navigation Delegate example'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.loadFlutterAsset,
-              child: Text('Load Flutter Asset'),
-            ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.loadHtmlString,
-              child: Text('Load HTML string'),
-            ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.loadLocalFile,
-              child: Text('Load local file'),
-            ),
-            const PopupMenuItem<_MenuOptions>(
-              key: ValueKey<String>('ShowTransparentBackgroundExample'),
-              value: _MenuOptions.transparentBackground,
-              child: Text('Transparent background example'),
-            ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.doPostRequest,
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.doPostRequest,
               child: Text('Post Request'),
             ),
-            const PopupMenuItem<_MenuOptions>(
-              value: _MenuOptions.setCookie,
-              child: Text('Set Cookie'),
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.loadHtmlString,
+              child: Text('Load HTML string'),
+            ),
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.loadLocalFile,
+              child: Text('Load local file'),
+            ),
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.loadFlutterAsset,
+              child: Text('Load Flutter Asset'),
+            ),
+            const PopupMenuItem<MenuOptions>(
+              key: ValueKey<String>('ShowTransparentBackgroundExample'),
+              value: MenuOptions.transparentBackground,
+              child: Text('Transparent background example'),
+            ),
+            const PopupMenuItem<MenuOptions>(
+              value: MenuOptions.setCookie,
+              child: Text('Set cookie'),
             ),
           ],
         );
@@ -313,10 +307,10 @@ class _SampleMenu extends StatelessWidget {
 
   Future<void> _onShowUserAgent(
       WebViewController controller, BuildContext context) async {
-    // Send a message with the user agent string to the Snackbar JavaScript channel we registered
+    // Send a message with the user agent string to the Toaster JavaScript channel we registered
     // with the WebView.
     await controller.runJavascript(
-        'Snackbar.postMessage("User Agent: " + navigator.userAgent);');
+        'Toaster.postMessage("User Agent: " + navigator.userAgent);');
   }
 
   Future<void> _onListCookies(
@@ -350,7 +344,7 @@ class _SampleMenu extends StatelessWidget {
       WebViewController controller, BuildContext context) async {
     await controller.runJavascript('caches.keys()'
         '.then((cacheKeys) => JSON.stringify({"cacheKeys" : cacheKeys, "localStorage" : localStorage}))'
-        '.then((caches) => Snackbar.postMessage(caches))');
+        '.then((caches) => Toaster.postMessage(caches))');
   }
 
   Future<void> _onClearCache(
@@ -362,9 +356,8 @@ class _SampleMenu extends StatelessWidget {
     ));
   }
 
-  Future<void> _onClearCookies(
-      WebViewController controller, BuildContext context) async {
-    final bool hadCookies = await WebViewCookieManager.instance.clearCookies();
+  Future<void> _onClearCookies(BuildContext context) async {
+    final bool hadCookies = await cookieManager.clearCookies();
     String message = 'There were cookies. Now, they are gone!';
     if (!hadCookies) {
       message = 'There are no cookies.';
@@ -375,15 +368,6 @@ class _SampleMenu extends StatelessWidget {
     ));
   }
 
-  Future<void> _onSetCookie(
-      WebViewController controller, BuildContext context) async {
-    await WebViewCookieManager.instance.setCookie(
-      const WebViewCookie(
-          name: 'foo', value: 'bar', domain: 'httpbin.org', path: '/anything'),
-    );
-    await controller.loadUrl('https://httpbin.org/anything');
-  }
-
   Future<void> _onNavigationDelegateExample(
       WebViewController controller, BuildContext context) async {
     final String contentBase64 =
@@ -391,9 +375,24 @@ class _SampleMenu extends StatelessWidget {
     await controller.loadUrl('data:text/html;base64,$contentBase64');
   }
 
-  Future<void> _onLoadFlutterAssetExample(
+  Future<void> _onSetCookie(
       WebViewController controller, BuildContext context) async {
-    await controller.loadFlutterAsset('assets/www/index.html');
+    await CookieManager().setCookie(
+      const WebViewCookie(
+          name: 'foo', value: 'bar', domain: 'httpbin.org', path: '/anything'),
+    );
+    await controller.loadUrl('https://httpbin.org/anything');
+  }
+
+  Future<void> _onDoPostRequest(
+      WebViewController controller, BuildContext context) async {
+    final WebViewRequest request = WebViewRequest(
+      uri: Uri.parse('https://httpbin.org/post'),
+      method: WebViewRequestMethod.post,
+      headers: <String, String>{'foo': 'bar', 'Content-Type': 'text/plain'},
+      body: Uint8List.fromList('Test Body'.codeUnits),
+    );
+    await controller.loadRequest(request);
   }
 
   Future<void> _onLoadLocalFileExample(
@@ -403,19 +402,19 @@ class _SampleMenu extends StatelessWidget {
     await controller.loadFile(pathToIndex);
   }
 
-  Future<void> _onLoadHtmlStringExample(
+  Future<void> _onLoadFlutterAssetExample(
       WebViewController controller, BuildContext context) async {
-    await controller.loadHtmlString(kExamplePage);
+    await controller.loadFlutterAsset('assets/www/index.html');
   }
 
-  Future<void> _onDoPostRequest(
+  Future<void> _onLoadHtmlStringExample(
       WebViewController controller, BuildContext context) async {
-    final WebViewRequest request = WebViewRequest(
-      uri: Uri.parse('https://httpbin.org/post'),
-      method: WebViewRequestMethod.post,
-      body: Uint8List.fromList('Test Body'.codeUnits),
-    );
-    await controller.loadRequest(request);
+    await controller.loadHtmlString(kLocalExamplePage);
+  }
+
+  Future<void> _onTransparentBackground(
+      WebViewController controller, BuildContext context) async {
+    await controller.loadHtmlString(kTransparentBackgroundPage);
   }
 
   Widget _getCookieList(String cookies) {
@@ -434,22 +433,18 @@ class _SampleMenu extends StatelessWidget {
 
   static Future<String> _prepareLocalFile() async {
     final String tmpDir = (await getTemporaryDirectory()).path;
-    final File indexFile = File('$tmpDir/www/index.html');
+    final File indexFile = File(
+        <String>{tmpDir, 'www', 'index.html'}.join(Platform.pathSeparator));
 
-    await Directory('$tmpDir/www').create(recursive: true);
-    await indexFile.writeAsString(kExamplePage);
+    await indexFile.create(recursive: true);
+    await indexFile.writeAsString(kLocalExamplePage);
 
     return indexFile.path;
   }
-
-  Future<void> _onTransparentBackground(
-      WebViewController controller, BuildContext context) async {
-    await controller.loadHtmlString(kTransparentBackgroundPage);
-  }
 }
 
-class _NavigationControls extends StatelessWidget {
-  const _NavigationControls(this._webViewControllerFuture)
+class NavigationControls extends StatelessWidget {
+  const NavigationControls(this._webViewControllerFuture)
       : assert(_webViewControllerFuture != null);
 
   final Future<WebViewController> _webViewControllerFuture;
@@ -463,7 +458,6 @@ class _NavigationControls extends StatelessWidget {
         final bool webViewReady =
             snapshot.connectionState == ConnectionState.done;
         final WebViewController? controller = snapshot.data;
-
         return Row(
           children: <Widget>[
             IconButton(
@@ -514,9 +508,6 @@ class _NavigationControls extends StatelessWidget {
   }
 }
 
-/// Callback type for handling messages sent from JavaScript running in a web view.
-typedef JavascriptMessageHandler = void Function(JavascriptMessage message);
-
 const String kNavigationExamplePage = '''
 <!DOCTYPE html><html>
 <head><title>Navigation Delegate Example</title></head>
@@ -532,7 +523,7 @@ The navigation delegate is set to block navigation to the youtube website.
 </html>
 ''';
 
-const String kExamplePage = '''
+const String kLocalExamplePage = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -552,22 +543,22 @@ const String kExamplePage = '''
 ''';
 
 const String kTransparentBackgroundPage = '''
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Transparent background test</title>
-</head>
-<style type="text/css">
-  body { background: transparent; margin: 0; padding: 0; }
-  #container { position: relative; margin: 0; padding: 0; width: 100vw; height: 100vh; }
-  #shape { background: #FF0000; width: 200px; height: 100%; margin: 0; padding: 0; position: absolute; top: 0; bottom: 0; left: calc(50% - 100px); }
-  p { text-align: center; }
-</style>
-<body>
-  <div id="container">
-    <p>Transparent background test</p>
-    <div id="shape"></div>
-  </div>
-</body>
-</html>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Transparent background test</title>
+  </head>
+  <style type="text/css">
+    body { background: transparent; margin: 0; padding: 0; }
+    #container { position: relative; margin: 0; padding: 0; width: 100vw; height: 100vh; }
+    #shape { background: red; width: 200px; height: 200px; margin: 0; padding: 0; position: absolute; top: calc(50% - 100px); left: calc(50% - 100px); }
+    p { text-align: center; }
+  </style>
+  <body>
+    <div id="container">
+      <p>Transparent background test</p>
+      <div id="shape"></div>
+    </div>
+  </body>
+  </html>
 ''';

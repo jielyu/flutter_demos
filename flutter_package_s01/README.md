@@ -6,6 +6,8 @@
 
 ## 1. webview
 
+ANDROID IOS
+
 网页加载显示的组件
 
 ### IOS端设置
@@ -35,9 +37,13 @@
 
 ## 2. provider
 
+ANDROID IOS LINUX MACOS WEB WINDOWS
+
 不同widget之间状态传递的组件
 
 ## 3. image_picker
+
+ANDROID IOS WEB
 
 选取图片的组件
 
@@ -55,6 +61,8 @@
 ```
 
 ## 4. local_notification
+
+ANDROID IOS LINUX MACOS
 
 本地通知push的组件
 
@@ -78,27 +86,50 @@ if #available(iOS 10.0, *) {
 }
 ```
 
+## 安卓设置
+
+`android/app/src/main/AndroidManifest.xml`
+
+```xml
+<activity
+    android:showWhenLocked="true"
+    android:turnScreenOn="true"
+>
+```
+
 ## 5. sqflite
+
+ANDROID IOS MACOS
 
 sqlite数据库封装
 
 ## 6. video_player
 
+ANDROID IOS WEB
+
 播放视频的组件
 
 ## 7. qr_code
+
+ANDROID IOS
 
 扫描二维码的组件
 
 ## 8. colorpicker
 
+ANDROID IOS LINUX MACOS WEB WINDOWS
+
 拾取颜色的组件
 
 ## 9. awesome_dialog
 
+ANDROID IOS LINUX MACOS WEB WINDOWS
+
 各种神奇的对话框
 
 ## 10. file_picker
+
+ANDROID IOS LINUX MACOS WEB WINDOWS
 
 选择文件和目录的组件
 
@@ -133,13 +164,19 @@ android:grantUriPermissions="true">
 
 ## 11. flutter_share
 
+ANDROID IOS
+
 分享信息、链接、文件的组件
 
 ## 12. emoji_picker
 
+ANDROID IOS MACOS
+
 添加表情包的组件
 
 ## 13. flutter_statusbarcolor_ns
+
+ANDROID IOS
 
 修改状态栏颜色的组件
 

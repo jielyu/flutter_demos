@@ -15,7 +15,6 @@ import 'share_page.dart';
 import 'sqflite_page.dart';
 import 'video_player_page.dart';
 import 'emoji_picker_page.dart';
-import 'webview_flutter_page_android.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +24,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final _routes = <String, WidgetBuilder>{
     "/home": (context) => const HomePage(),
-    "/webview_flutter": (context) =>
-        Platform.isAndroid ? const WebviewAndroidPage() : const WebviewPage(),
+    "/webview_flutter": (context) => const WebviewPage(),
     "/provider": (context) => const ProviderPage(),
     "/image_picker": (context) => const ImagePickerPage(),
     "/local_notification": (context) => const LocalNotificationPage(),
