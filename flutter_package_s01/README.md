@@ -8,16 +8,29 @@
 
 网页加载显示的组件
 
-安卓情况下，加载网页失败
+### IOS端设置
+
+`ios/Runner/Info.plist`
+
+```xml
+<key>io.flutter.embedded_views_preview</key>
+<string>YES</string>
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
+```
+
+### 安卓加载网页失败
 
 1. webview_flutter 无法加载
 
 更换 webview_flutter_android
 
+2. 握手失败
 
-2. ssl失败
-
-https://stackoverflow.com/questions/55592392/how-to-fix-neterr-cleartext-not-permitted-in-flutter
+[解决方案](https://stackoverflow.com/questions/55592392/how-to-fix-neterr-cleartext-not-permitted-in-flutter)
 
 
 ## 2. provider
@@ -28,9 +41,42 @@ https://stackoverflow.com/questions/55592392/how-to-fix-neterr-cleartext-not-per
 
 选取图片的组件
 
+### IOS配置
+
+`ios/Runner/Info.plist`
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Used to demonstrate image picker plugin</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Used to capture audio for image picker plugin</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Used to demonstrate image picker plugin</string>
+```
+
 ## 4. local_notification
 
 本地通知push的组件
+
+### IOS设置
+
+`ios/Runner/Info.plist`
+
+```xml
+<key>UIBackgroundModes</key>
+<array>
+    <string>fetch</string>
+    <string>remote-notification</string>
+</array>
+```
+
+修改文件 `ios/Runner/AppDelegate.swift`的`didFinishLaunchingWithOptions`函数开头加上
+
+```swift
+if #available(iOS 10.0, *) {
+    UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+}
+```
 
 ## 5. sqflite
 
@@ -55,6 +101,35 @@ sqlite数据库封装
 ## 10. file_picker
 
 选择文件和目录的组件
+
+### IOS设置
+
+`ios/Runner/Info.plist`
+
+```xml
+<key>NSAppleMusicUsageDescription</key>
+<string>Explain why your app uses music</string>
+<key>UISupportsDocumentBrowser</key>
+<true/>
+<key>LSSupportsOpeningDocumentsInPlace</key>
+<true/>
+```
+
+### 安卓设置
+
+`android/app/src/main/AndroidManifest.xml` 的 `<application></application>`之间
+
+```xml
+<provider
+android:name="androidx.core.content.FileProvider"
+android:authorities="${applicationId}.provider"
+android:exported="false"
+android:grantUriPermissions="true">
+<meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/provider_paths"/>
+</provider>
+```
 
 ## 11. flutter_share
 
