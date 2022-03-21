@@ -26,10 +26,13 @@ class _LocalNotificationPageState extends State<LocalNotificationPage> {
     const IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
             requestSoundPermission: false, defaultPresentSound: false);
+    const MacOSInitializationSettings initializationSettingsMacOS =
+        MacOSInitializationSettings();
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
+      macOS: initializationSettingsMacOS,
     );
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
@@ -103,6 +106,8 @@ class _LocalNotificationPageState extends State<LocalNotificationPage> {
             ticker: 'ticker');
     const IOSNotificationDetails iosPlatformChannelSpecifics =
         IOSNotificationDetails(badgeNumber: 10);
+    const MacOSNotificationDetails macosPlatformChannelSpecifics =
+        MacOSNotificationDetails();
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iosPlatformChannelSpecifics);

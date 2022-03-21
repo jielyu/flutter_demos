@@ -28,7 +28,7 @@ class _QRCodePageState extends State<QRCodePage> {
               builder: (context) => const QRViewExample(),
             ));
           },
-          child: const Text('qrView'),
+          child: const Text('扫一扫'),
         ),
       ),
     );
@@ -76,9 +76,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                 children: <Widget>[
                   if (result != null)
                     Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                        '码的类型: ${describeEnum(result!.format)}   数据: ${result!.code}')
                   else
-                    const Text('Scan a code'),
+                    const Text('请扫描二维码'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,8 +128,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                           onPressed: () async {
                             await controller?.pauseCamera();
                           },
-                          child: const Text('pause',
-                              style: TextStyle(fontSize: 20)),
+                          child:
+                              const Text('暂停', style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       Container(
@@ -138,8 +138,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                           onPressed: () async {
                             await controller?.resumeCamera();
                           },
-                          child: const Text('resume',
-                              style: TextStyle(fontSize: 20)),
+                          child:
+                              const Text('恢复', style: TextStyle(fontSize: 20)),
                         ),
                       )
                     ],
