@@ -1,4 +1,5 @@
-import 'dart:io';
+/// 使用file_picker实现文件选择功能的案例
+/// 可以在移动端和桌面端全平台使用
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';

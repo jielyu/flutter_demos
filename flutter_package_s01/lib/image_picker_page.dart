@@ -1,3 +1,6 @@
+/// 使用image_picker选取图片的案例
+/// 无法在桌面端使用
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -1,3 +1,6 @@
+/// 使用sqflite实现sqlite数据库持久化的案例
+/// 目前只能支持IOS、Android和macOS
+
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';

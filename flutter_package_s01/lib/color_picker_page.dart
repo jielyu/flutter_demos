@@ -1,3 +1,6 @@
+/// 使用flutter_colorpicker实现颜色拾取功能的案例
+/// 可以在移动端和桌面端全平台使用
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 

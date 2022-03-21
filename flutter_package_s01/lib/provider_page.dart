@@ -1,3 +1,7 @@
+/// 演示使用provider状态管理的案例
+/// 可以在移动端和桌面端都使用provider进行状态管理
+/// 这也是flutter官方推荐的一种方式
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +48,7 @@ class _TmpPageState extends State<TmpPage> {
           children: [
             ListTile(
               leading: const Icon(Icons.phone),
-              title: const Text("手机"),
+              title: const Text("iPhone 13 Pro"),
               subtitle: const Text("性能超乎你想象"),
               trailing: Wrap(
                 children: [

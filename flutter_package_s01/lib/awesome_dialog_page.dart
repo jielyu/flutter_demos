@@ -1,3 +1,6 @@
+/// 使用awesome_dialog实现各种神奇的对话框案例
+/// 可以在移动端和桌面端全平台使用
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +16,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("awesome dialog"),
+        title: const Text("awesome_dialog"),
       ),
       body: Center(
           child: Container(
@@ -22,7 +25,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
           child: Column(
             children: <Widget>[
               AnimatedButton(
-                text: 'Info Dialog fixed width and sqare buttons',
+                text: '固定宽度、方形按钮的通知对话框',
                 pressEvent: () {
                   AwesomeDialog(
                     context: context,
@@ -33,11 +36,13 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                         const BorderRadius.all(Radius.circular(2)),
                     headerAnimationLoop: false,
                     animType: AnimType.BOTTOMSLIDE,
-                    title: 'INFO',
-                    desc: 'Dialog description here...',
+                    title: '通知',
+                    desc: '关于对话框的信息描述',
                     showCloseIcon: true,
                     btnCancelOnPress: () {},
                     btnOkOnPress: () {},
+                    btnOkText: "确定",
+                    btnCancelText: "取消",
                   ).show();
                 },
               ),
@@ -45,15 +50,15 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Question Dialog With Custom BTN Style',
+                text: '定制按钮样式的问题对话框',
                 pressEvent: () {
                   AwesomeDialog(
                     context: context,
                     dialogType: DialogType.QUESTION,
                     headerAnimationLoop: false,
                     animType: AnimType.BOTTOMSLIDE,
-                    title: 'Question',
-                    desc: 'Dialog description here...',
+                    title: '问题',
+                    desc: '问题的描述...',
                     buttonsTextStyle: const TextStyle(color: Colors.black),
                     showCloseIcon: true,
                     btnCancelOnPress: () {},
@@ -65,15 +70,14 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Info Dialog Without buttons',
+                text: '没有按钮的通知对话框',
                 pressEvent: () {
                   AwesomeDialog(
                     context: context,
                     headerAnimationLoop: true,
                     animType: AnimType.BOTTOMSLIDE,
-                    title: 'INFO',
-                    desc:
-                        'Lorem ipsum dolor sit amet consectetur adipiscing elit eget ornare tempus, vestibulum sagittis rhoncus felis hendrerit lectus ultricies duis vel, id morbi cum ultrices tellus metus dis ut donec. Ut sagittis viverra venenatis eget euismod faucibus odio ligula phasellus,',
+                    title: '通知',
+                    desc: '通知：关于xxx问题的修复正在进行中，请耐心等待',
                   ).show();
                 },
               ),
@@ -81,7 +85,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Warning Dialog',
+                text: '警告对话框',
                 color: Colors.orange,
                 pressEvent: () {
                   AwesomeDialog(
@@ -92,9 +96,8 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                           showCloseIcon: true,
                           closeIcon:
                               const Icon(Icons.close_fullscreen_outlined),
-                          title: 'Warning',
-                          desc:
-                              'Dialog description here..................................................',
+                          title: '警告',
+                          desc: '警告信息的描述...',
                           btnCancelOnPress: () {},
                           onDissmissCallback: (type) {
                             debugPrint('Dialog Dissmiss from callback $type');
@@ -107,7 +110,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Error Dialog',
+                text: '错误对话框',
                 color: Colors.red,
                 pressEvent: () {
                   AwesomeDialog(
@@ -115,9 +118,8 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                           dialogType: DialogType.ERROR,
                           animType: AnimType.RIGHSLIDE,
                           headerAnimationLoop: true,
-                          title: 'Error',
-                          desc:
-                              'Dialog description here..................................................',
+                          title: '错误',
+                          desc: '错误信息描述...',
                           btnOkOnPress: () {},
                           btnOkIcon: Icons.cancel,
                           btnOkColor: Colors.red)
@@ -128,7 +130,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Succes Dialog',
+                text: '成功对话框',
                 color: Colors.green,
                 pressEvent: () {
                   AwesomeDialog(
@@ -137,9 +139,8 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                       headerAnimationLoop: false,
                       dialogType: DialogType.SUCCES,
                       showCloseIcon: true,
-                      title: 'Succes',
-                      desc:
-                          'Dialog description here..................................................',
+                      title: '成功',
+                      desc: '操作成功的信息描述...',
                       btnOkOnPress: () {
                         debugPrint('OnClcik');
                       },
@@ -153,16 +154,15 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'No Header Dialog',
+                text: '无头部对话框',
                 color: Colors.cyan,
                 pressEvent: () {
                   AwesomeDialog(
                     context: context,
                     headerAnimationLoop: false,
                     dialogType: DialogType.NO_HEADER,
-                    title: 'No Header',
-                    desc:
-                        'Dialog description here..................................................',
+                    title: '无头部',
+                    desc: '信息描述...',
                     btnOkOnPress: () {
                       debugPrint('OnClcik');
                     },
@@ -174,7 +174,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Custom Body Dialog',
+                text: '内容定制对话框',
                 color: Colors.blueGrey,
                 pressEvent: () {
                   AwesomeDialog(
@@ -183,12 +183,12 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                     dialogType: DialogType.INFO,
                     body: const Center(
                       child: Text(
-                        'If the body is specified, then title and description will be ignored, this allows to further customize the dialogue.',
+                        '如果指定了body，则标题和描述都会被忽略，也就可以自由定制对话框的内容了',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
-                    title: 'This is Ignored',
-                    desc: 'This is also Ignored',
+                    title: '被忽略',
+                    desc: '这是被忽略的',
                   ).show();
                 },
               ),
@@ -196,15 +196,15 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Auto Hide Dialog',
+                text: '自动隐藏对话框',
                 color: Colors.purple,
                 pressEvent: () {
                   AwesomeDialog(
                     context: context,
                     dialogType: DialogType.INFO,
                     animType: AnimType.SCALE,
-                    title: 'Auto Hide Dialog',
-                    desc: 'AutoHide after 2 seconds',
+                    title: '自动隐藏',
+                    desc: '2秒钟后自动隐藏',
                     autoHide: const Duration(seconds: 2),
                   ).show();
                 },
@@ -213,7 +213,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Testing Dialog',
+                text: '测试对话框',
                 color: Colors.orange,
                 pressEvent: () {
                   AwesomeDialog(
@@ -222,12 +222,11 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                     dismissOnBackKeyPress: false,
                     dialogType: DialogType.WARNING,
                     animType: AnimType.BOTTOMSLIDE,
-                    btnCancelText: "Cancel Order",
-                    btnOkText: "Yes, I will pay",
-                    title: 'Continue to pay?',
+                    btnCancelText: "取消",
+                    btnOkText: "确定",
+                    title: '是否继续?',
                     // padding: const EdgeInsets.all(5.0),
-                    desc:
-                        'Please confirm that you will pay 3000 INR within 30 mins. Creating orders without paying will create penalty charges, and your account may be disabled.',
+                    desc: '告知信息的描述...',
                     btnCancelOnPress: () {},
                     btnOkOnPress: () {},
                   ).show();
@@ -237,7 +236,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                 height: 16,
               ),
               AnimatedButton(
-                text: 'Body with Input',
+                text: '带输入框的对话框',
                 color: Colors.blueGrey,
                 pressEvent: () {
                   late AwesomeDialog dialog;
@@ -251,7 +250,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            'Form Data',
+                            '表单数据',
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           const SizedBox(
@@ -265,7 +264,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                               minLines: 1,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Title',
+                                labelText: '标题',
                                 prefixIcon: Icon(Icons.text_fields),
                               ),
                             ),
@@ -284,7 +283,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                               maxLines: null,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Description',
+                                labelText: '描述',
                                 prefixIcon: Icon(Icons.text_fields),
                               ),
                             ),
@@ -294,7 +293,7 @@ class _AwesomeDialogPageState extends State<AwesomeDialogPage> {
                           ),
                           AnimatedButton(
                               isFixedHeight: false,
-                              text: 'Close',
+                              text: '关闭',
                               pressEvent: () {
                                 dialog.dismiss();
                               })

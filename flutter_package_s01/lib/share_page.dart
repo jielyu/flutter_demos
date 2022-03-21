@@ -1,3 +1,6 @@
+/// 使用flutter_share实现信息分享的案例
+/// 仅支持在移动端使用
+
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 

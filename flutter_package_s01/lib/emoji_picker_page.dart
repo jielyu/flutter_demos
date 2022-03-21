@@ -1,3 +1,6 @@
+/// 使用emoji_picker_flutter实现表情包选择功能的案例
+/// 只能在移动端和macOS桌面端使用
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';

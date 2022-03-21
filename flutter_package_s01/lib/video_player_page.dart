@@ -1,3 +1,6 @@
+/// 使用video_player实现视频播放功能
+/// 还不支持桌面端
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 

@@ -1,13 +1,8 @@
-import 'dart:developer';
-import 'dart:io';
+/// 使用flutter_local_notifications实现本地通知的案例
+/// 目前这款package在windows下无法使用
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_package_s01/main.dart';
-import 'package:rxdart/rxdart.dart';
 
 class LocalNotificationPage extends StatefulWidget {
   const LocalNotificationPage({Key? key, this.notificationAppLaunchDetails})

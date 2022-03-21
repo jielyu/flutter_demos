@@ -1,3 +1,6 @@
+/// 使用qr_code_scanner实现二维码扫描功能
+/// 仅在移动端使用
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';

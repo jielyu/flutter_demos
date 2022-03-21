@@ -1,3 +1,8 @@
+/// 演示移动端使用webview的案例
+/// IOS端使用webview_flutter包实现
+/// Android端使用webview_flutter_android包实现
+/// 注意：最好不要使用webview承担太复杂的功能，否则会遇到很多的坑
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -30,6 +35,7 @@ class _WebviewPageState extends State<WebviewPage> {
       body: Container(
         alignment: Alignment.center,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
               onPressed: () {
