@@ -1,0 +1,23 @@
+<svg enable-background="new 0 0 266 232" viewBox="0 0 266 232" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"><text fill="#000000" font-family="'Times-Bold'" font-size="14"
+        transform="translate(20.0009 40)">Hello Qt</text>
+    <path d="m50 70 50 30" fill="none" stroke="#000" stroke-linecap="square" stroke-linejoin="bevel" />
+    <image height="32" overflow="visible" transform="translate(39.0009 119)" width="82" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAAAhCAYAAAClWJfKAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIlJREFUeNrs2jsOhDAQREH7/odu
+EjI+tmGIqEkImuhJrCrY1lzZ9f0ZKcpaXsYcRbafvBehXu23MYVa2zNVWaipPcNvX6jp/RBTqOd7
+hPhojxCv9iz/Ftg5kzM5kzM5kzM5kzOF4kzO5Ew7Z3ImZ3KmUJzJmZxp50zO5My/OdO/4OquS1B4
+mwADAPOnWbknXC8OAAAAAElFTkSuQmCC" />
+    <image height="42" overflow="visible" transform="translate(29.0009 179)" width="102" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGcAAAArCAYAAABl25buAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUhJREFUeNrsnI0OwiAMhOH9H1oT
+fxKGY67A4Dq+RhPjbYh3gZ5ADYGQjeilo4/XY9Px+H0/fX32mujou08nPn2GD4E52dtb/jV5jCef
+9SN+ji0pyFXE98JvL9LOqJAgvga/xegqdNq1MCVcXqQTHbylMKWp0IsoSwljyKuj9AG3uMJR+QRh
+DPhlAu00DPGdXB/C+MKrkz3EdsZ7jSKIFXV1EDvA1ZFjRPGa0QNxouYA4lSEyYYVxKmYA4QRxlmS
+EcbTrWGImY9bnRvEDcQt4kDc7CWdlbaWXQkDMfwABW8VhjMB807xtIoDsZOmMsyBujAs6Yydytho
+85pjGk0CxM8U5qBhiL9oSaZZIFzdoOSPq+uPS1UfsO3wxr2WhHDuTFkk767PWKXnN7yUIi5duJsT
+YKy77F7jqTQqoifxWv97IL+GIKrjKcAALIxN5UDwis8AAAAASUVORK5CYII=" />
+    <g clip-rule="evenodd" fill-rule="evenodd" stroke-miterlimit="2">
+        <path d="m150 30h100v50h-100z" fill="#ff0" stroke="#f00" stroke-dasharray="4 2 1 2" />
+        <path d="m250 120c0 11-22.4 20-50 20s-50-9-50-20 22.4-20 50-20 50 9 50 20" fill="#7aa327" stroke="#4f6a19"
+            stroke-width="5" />
+    </g>
+</svg>
