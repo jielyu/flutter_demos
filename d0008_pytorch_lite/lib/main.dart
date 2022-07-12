@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as IMG;
 
 void main() {
   runApp(const MyApp());
@@ -75,6 +76,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return dirPath;
   }
 
+  Future<void> _forward() async {
+    String imgPath = 'assets/images/Valley-Taurus-Mountains-Turkey.jpg';
+    final byteArr = await rootBundle.load(imgPath);
+    IMG.Image? img = IMG.decodeImage(byteArr.buffer.asUint8List());
+    final data = img!.getBytes(format: IMG.Format.rgb);
+    print('image: ${img.width}x${img.height}, data: ${data.length}');
+    final res = await platform.invokeMethod('forward', <String, dynamic>{
+      'data': IMG.encodeJpg(img!, quality: 100),
+      'width': img.width,
+      'height': img.height,
+      'channels': 3,
+    });
+    print('forward: $res');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   _loadModel();
                 },
                 child: const Text("载入lite模型"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _forward();
+                },
+                child: const Text("前向推理"),
               ),
             ],
           )),
