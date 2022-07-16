@@ -34,7 +34,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform = MethodChannel('test_pytorch_lite/test');
-  String pathImageModel = "assets/models/photo_sketch.ptl";
+  // String pathImageModel = "assets/models/photo_sketch.ptl";
+  String pathImageModel = "assets/models/model_classification.pt";
 
   Future<void> _testStart() async {
     final res = await platform.invokeMethod('testStart');
@@ -79,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _forward() async {
     String imgPath = 'assets/images/Valley-Taurus-Mountains-Turkey.jpg';
     final byteArr = await rootBundle.load(imgPath);
-    IMG.Image? img = IMG.decodeImage(byteArr.buffer.asUint8List());
+    // IMG.Image? img = IMG.decodeImage(byteArr.buffer.asUint8List());
+    final img = IMG.Image(224, 224).fill(Colors.white.value);
     final data = img!.getBytes(format: IMG.Format.rgb);
     print('image: ${img.width}x${img.height}, data: ${data.length}');
     final res = await platform.invokeMethod('forward', <String, dynamic>{
