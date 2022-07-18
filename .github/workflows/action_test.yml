@@ -14,7 +14,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: action_test
+        working-directory: t011_action_test
     steps:
     - uses: actions/checkout@v1
     - uses: subosito/flutter-action@v1
