@@ -1,0 +1,21 @@
+name: ActionTest
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+        - "t011_action_test/**"
+        - ".github/workflows/action_test.yml"
+
+jobs:
+  drive:
+    runs-on: macOS-12
+    defaults:
+      run:
+        shell: bash
+        working-directory: action_test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+    - run: flutter test
