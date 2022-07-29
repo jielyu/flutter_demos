@@ -35,19 +35,37 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("边框"),
-      ),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.red,
+        appBar: AppBar(
+          title: const Text("边框"),
         ),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: const Text("圆角边框"),
-        ),
-      ),
-    );
+        body: Container(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DecoratedBox(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.red,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Text("圆角边框"),
+                ),
+              ),
+              const SizedBox(height: 20),
+              DecoratedBox(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(3)),
+                  color: Colors.red,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: const Text("圆角边框"),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
