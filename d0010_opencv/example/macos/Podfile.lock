@@ -1,0 +1,28 @@
+PODS:
+  - d0010_opencv (0.0.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+  - path_provider_macos (0.0.1):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - d0010_opencv (from `Flutter/ephemeral/.symlinks/plugins/d0010_opencv/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
+
+EXTERNAL SOURCES:
+  d0010_opencv:
+    :path: Flutter/ephemeral/.symlinks/plugins/d0010_opencv/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  path_provider_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
+
+SPEC CHECKSUMS:
+  d0010_opencv: 24683c58cf9a1459f595f20026d309ab8c450dc8
+  FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
+  path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
+
+PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+
+COCOAPODS: 1.11.2

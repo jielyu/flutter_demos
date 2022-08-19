@@ -1,5 +1,3 @@
-test_demo/
-d0010_opencv/macos/opencv-4.5.4/
 # Miscellaneous
 *.class
 *.log
@@ -10,6 +8,7 @@ d0010_opencv/macos/opencv-4.5.4/
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
