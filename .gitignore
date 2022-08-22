@@ -1,5 +1,7 @@
 test_demo/
 d0010_opencv/macos/opencv-4.5.4/
+d0011_libtorch/macos/opencv-4.5.4/
+d0011_libtorch/macos/libtorch-1.12.0/
 # Miscellaneous
 *.class
 *.log
