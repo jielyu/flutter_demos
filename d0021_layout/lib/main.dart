@@ -1,3 +1,4 @@
+import 'package:d0021_layout/pages/align.dart';
 import 'package:d0021_layout/pages/row.dart';
 import 'package:flutter/material.dart';
 
@@ -56,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            _buildDemoItem(context, "Align", const AlignLayoutDemo()),
             _buildDemoItem(context, "Row", const RowLayoutDemo()),
           ],
         ),
