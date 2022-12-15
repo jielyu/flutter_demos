@@ -14,12 +14,18 @@ class RowLayoutDemo extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("文字"),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("按钮"),
+          children: const <Widget>[
+            Expanded(
+              child:
+                  Text('Deliver features faster', textAlign: TextAlign.center),
+            ),
+            Expanded(
+              child: Text('Craft beautiful UIs', textAlign: TextAlign.center),
+            ),
+            Expanded(
+              child: FittedBox(
+                child: FlutterLogo(),
+              ),
             ),
           ],
         ),

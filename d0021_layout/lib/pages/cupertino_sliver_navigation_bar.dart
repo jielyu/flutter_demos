@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CupertinoSliverNavigationBarDemo extends StatelessWidget {
   const CupertinoSliverNavigationBarDemo({super.key});
@@ -10,13 +11,17 @@ class CupertinoSliverNavigationBarDemo extends StatelessWidget {
       child: CustomScrollView(
         // A list of sliver widgets.
         slivers: <Widget>[
-          const CupertinoSliverNavigationBar(
-            leading: Icon(CupertinoIcons.person_2),
+          CupertinoSliverNavigationBar(
+            leading: CupertinoButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(CupertinoIcons.left_chevron)),
             // This title is visible in both collapsed and expanded states.
             // When the "middle" parameter is omitted, the widget provided
             // in the "largeTitle" parameter is used instead in the collapsed state.
-            largeTitle: Text('CupertinoSliverNavigationBar'),
-            trailing: Icon(CupertinoIcons.add_circled),
+            largeTitle: const Text('CupertinoSliverNavigationBar'),
+            trailing: const Icon(CupertinoIcons.add_circled),
           ),
           // This widget fills the remaining space in the viewport.
           // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.

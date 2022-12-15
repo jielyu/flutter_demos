@@ -11,18 +11,6 @@ class LayoutBuilderLayoutDemo extends StatelessWidget {
       appBar: AppBar(
         title: const Text("LayoutBuilder"),
       ),
-      body: const MyStatelessWidget(),
-    );
-  }
-}
-
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('LayoutBuilder Example')),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth > 600) {

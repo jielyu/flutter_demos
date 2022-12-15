@@ -11,17 +11,23 @@ class SliverFixedExtentListLayoutDemo extends StatelessWidget {
       appBar: AppBar(
         title: const Text("SliverFixedExtentList"),
       ),
-      body: SliverFixedExtentList(
-        itemExtent: 50.0,
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              alignment: Alignment.center,
-              color: Colors.lightBlue[100 * (index % 9)],
-              child: Text('list item $index'),
-            );
-          },
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverSafeArea(
+            sliver: SliverFixedExtentList(
+              itemExtent: 50.0,
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Container(
+                    alignment: Alignment.center,
+                    color: Colors.lightBlue[100 * (index % 9)],
+                    child: Text('list item $index'),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
